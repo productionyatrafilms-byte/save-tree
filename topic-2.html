@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-lang-key="title"></title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <style>
+      main {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .left-container,
+      .right-container {
+        position: relative;
+        width: 50%;
+        height: 100%;
+      }
+
+      .page-title {
+        position: absolute;
+        top: 3%;
+        left: 60%;
+        text-align: center;
+        z-index: 10000;
+        transition: opacity 3s ease;
+        transform: translateX(-50%);
+        width: 43vw;
+        height: 5.5vw;
+        border-radius: 5vw;
+        border: 0.12vw solid rgba(255, 255, 255, 0.65);
+        overflow: hidden;
+        box-shadow: 0 0.2vw 0.1vw rgba(0, 0, 0, 0.333);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.8vw;
+      }
+
+      .page-title::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: #ffffcc;
+        box-shadow:
+          inset 0 0 1vw rgba(255, 255, 255, 0.35),
+          0 0.5vw 1.5vw rgba(0, 0, 0, 0.25);
+        z-index: 1;
+      }
+
+      .page-title span {
+        position: relative;
+        z-index: 2;
+        font-size: 3vw;
+        line-height: 1;
+        text-align: center;
+        font-family: "TitanOne";
+        display: inline-block;
+        font-weight: bolder !important;
+        white-space: nowrap;
+        background: linear-gradient(
+          to bottom,
+          #075132 0%,
+          #075132 50%,
+          #1e6e13 80%,
+          #1e6e13 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-stroke: transparent;
+        paint-order: stroke fill;
+        filter: drop-shadow(0 0.3vw 0 rgba(0, 0, 0, 0.35));
+      }
+
+      body[data-lang="hi"] .page-title span,
+      body[data-lang="gu"] .page-title span {
+        font-size: 2.8vw;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="home-button home-btn" href="index.html">
+      <img src="./assets/images/home.png" alt="" />
+    </a>
+
+    <div class="language-container">
+      <div class="english active">E</div>
+      <div class="hindi">H</div>
+      <div class="gujrati">G</div>
+    </div>
+
+    <main>
+      <div class="left-container">
+        <div class="page-title">
+          <span class="num" data-lang-key="num.2"></span>
+          <span class="text" data-lang-key="topic-2"></span>
+        </div>
+
+        <div class="swiper video-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <video
+                src="./assets/videos/topic-2/level 2_p1.mp4"
+                muted
+                playsinline
+              ></video>
+            </div>
+
+            <div class="swiper-slide">
+              <video
+                src="./assets/videos/topic-2/level 2_p2.mp4"
+                muted
+                playsinline
+              ></video>
+            </div>
+
+            <div class="swiper-slide">
+              <video
+                src="./assets/videos/topic-2/level 2_p3.mp4"
+                muted
+                playsinline
+              ></video>
+            </div>
+
+            <div class="swiper-slide">
+              <video
+                src="./assets/videos/topic-2/level 2_p4.mp4"
+                muted
+                playsinline
+              ></video>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="prev-btn hide">
+            <i class="fa-solid fa-chevron-left single-icon"></i>
+            <i class="fa-solid fa-angles-left double-icon"></i>
+          </button>
+
+          <button class="next-btn">
+            <i class="fa-solid fa-chevron-right single-icon"></i>
+            <i class="fa-solid fa-angles-right double-icon"></i>
+          </button>
+        </div>
+
+        <div class="pages">
+          <a href="topic-1.html" class="page" data-lang-key="num-1"></a>
+          <a href="topic-2.html" class="page" data-lang-key="num-2"></a>
+          <a href="topic-3.html" class="page" data-lang-key="num-3"></a>
+          <a href="topic-4.html" class="page" data-lang-key="num-4"></a>
+        </div>
+      </div>
+
+      <div class="right-container">
+        <div class="swiper text-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="content-text">
+                <img src="./assets/images/content-text.png" alt="" />
+                <p data-lang-key="slide-2.1"></p>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="content-text">
+                <img src="./assets/images/content-text.png" alt="" />
+                <p data-lang-key="slide-2.2"></p>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="content-text">
+                <img src="./assets/images/content-text.png" alt="" />
+                <p data-lang-key="slide-2.3"></p>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="content-text">
+                <img src="./assets/images/content-text.png" alt="" />
+                <p data-lang-key="slide-2.4"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./assets/js/app.js"></script>
+
+    <script>
+      const prevBtn = document.querySelector(".prev-btn");
+      const nextBtn = document.querySelector(".next-btn");
+
+      let isAnimating = false;
+
+      const textSwiper = new Swiper(".text-swiper", {
+        effect: "fade",
+        allowTouchMove: false,
+        speed: 700,
+      });
+
+      const videoSwiper = new Swiper(".video-swiper", {
+        effect: "fade",
+        allowTouchMove: false,
+        speed: 700,
+        on: {
+          init(swiper) {
+            playActiveVideo(swiper);
+            updateButtons(swiper);
+          },
+          slideChange(swiper) {
+            playActiveVideo(swiper);
+            updateButtons(swiper);
+          },
+        },
+      });
+
+      function playActiveVideo(swiper) {
+        document.querySelectorAll(".video-swiper video").forEach((video) => {
+          video.pause();
+          video.currentTime = 0;
+        });
+
+        const activeVideo =
+          swiper.slides[swiper.activeIndex].querySelector("video");
+
+        if (activeVideo) {
+          activeVideo.play();
+        }
+      }
+
+      function updateButtons(swiper) {
+        prevBtn.classList.toggle("hide", swiper.isBeginning);
+        nextBtn.classList.toggle("hide", swiper.isEnd);
+      }
+
+      function resetContentImages() {
+        document.querySelectorAll(".content-text").forEach((box) => {
+          box.classList.remove("move-img");
+        });
+      }
+
+      nextBtn.addEventListener("click", () => {
+        if (videoSwiper.isEnd || isAnimating) return;
+
+        isAnimating = true;
+
+        const currentContent = document.querySelector(
+          ".text-swiper .swiper-slide-active .content-text",
+        );
+
+        if (currentContent) {
+          currentContent.classList.add("move-img");
+        }
+
+        setTimeout(() => {
+          videoSwiper.slideNext();
+          textSwiper.slideNext();
+
+          setTimeout(() => {
+            resetContentImages();
+            isAnimating = false;
+          }, 100);
+        }, 450);
+      });
+
+      prevBtn.addEventListener("click", () => {
+        if (videoSwiper.isBeginning || isAnimating) return;
+
+        videoSwiper.slidePrev();
+        textSwiper.slidePrev();
+        resetContentImages();
+      });
+    </script>
+  </body>
+</html>

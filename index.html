@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-lang-key="title"></title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <style>
+      .bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        filter: blur(0);
+        transform: scale(1);
+        transition:
+          filter 1.2s ease,
+          transform 1.2s ease;
+      }
+
+      body.start-open .bg-video {
+        filter: blur(0.6vw);
+        transform: scale(1.04);
+      }
+
+      .home-btn,
+      .language-container,
+      .page-title {
+        opacity: 0;
+        transition: opacity 1.2s ease;
+      }
+
+      body.start-open .home-btn,
+      body.start-open .language-container,
+      body.start-open .page-title {
+        opacity: 1;
+      }
+
+      .start-btn-wrap {
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        width: 7vw;
+        height: 7vw;
+        transform: translate(-50%, -50%) scale(1);
+        z-index: 10;
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      body.start-open .start-btn-wrap {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+        pointer-events: none;
+      }
+
+      .start-btn {
+        position: relative;
+        width: 7vw;
+        height: 7vw;
+        background-color: #91aa54;
+        border: 0.3vw solid #dddd7e;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "BalooRegular";
+        overflow: hidden;
+        cursor: pointer;
+        z-index: 2;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease,
+          border 0.3s ease;
+      }
+
+      .start-btn span {
+        position: relative;
+        z-index: 3;
+        font-size: 2vw;
+      }
+
+      .pulse-layer {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 7vw;
+        height: 7vw;
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .pulse-1 {
+        background-color: rgba(221, 221, 126, 0.35);
+        border: 0.25vw solid rgba(221, 221, 126, 0.75);
+        animation: pulseLayer 2.4s ease-in-out infinite;
+      }
+
+      .pulse-2 {
+        background-color: rgba(73, 87, 35, 0.533);
+        border: 0.25vw solid rgba(255, 255, 255, 0.45);
+        animation: pulseLayer 2.4s ease-in-out infinite;
+        animation-delay: 1.2s;
+      }
+
+      .start-btn:hover {
+        background-color: #ffffcc;
+        color: #3b7222;
+        border: 0.3vw solid #dddd7e;
+      }
+
+      @keyframes pulseLayer {
+        0% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 0.8;
+        }
+
+        50% {
+          transform: translate(-50%, -50%) scale(1.55);
+          opacity: 0.15;
+        }
+
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 0.8;
+        }
+      }
+
+      .page-load-transition {
+        opacity: 1;
+        position: fixed;
+        left: 0;
+        top: -40%;
+        width: 100vw;
+        height: 100%;
+        z-index: 999999;
+        pointer-events: none;
+        animation: pageLoadGoDown 4s ease-in-out forwards;
+      }
+
+      .page-load-transition img {
+        width: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      @keyframes pageLoadGoDown {
+        0% {
+          transform: translateY(0);
+        }
+
+        45% {
+          transform: translateY(0);
+        }
+
+        100% {
+          transform: translateY(140%);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-load-transition">
+      <img src="./assets/images/transition-img.png" alt="" />
+    </div>
+
+    <video class="bg-video" autoplay muted loop playsinline>
+      <source src="./assets/videos/bg-video.mp4" type="video/mp4" />
+    </video>
+
+    <a class="home-button home-btn" href="index.html">
+      <img src="./assets/images/home.png" alt="" />
+    </a>
+
+    <div class="page-title">
+      <span data-lang-key="title"></span>
+    </div>
+
+    <div class="language-container">
+      <div class="english active">E</div>
+      <div class="hindi">H</div>
+      <div class="gujrati">G</div>
+    </div>
+
+    <div class="start-btn-wrap">
+      <div class="pulse-layer pulse-1"></div>
+      <div class="pulse-layer pulse-2"></div>
+
+      <div class="start-btn">
+        <span>Start</span>
+      </div>
+    </div>
+
+    <div class="topic-container">
+      <a href="topic-1.html" class="topic topic-1">
+        <img src="./assets/images/topic-1.png" alt="" />
+        <div class="num" data-lang-key="num.1"></div>
+        <div class="text" data-lang-key="topic-1"></div>
+      </a>
+
+      <a href="topic-2.html" class="topic topic-2">
+        <img src="./assets/images/topic-2.png" alt="" />
+        <div class="num" data-lang-key="num.2"></div>
+        <div class="text" data-lang-key="topic-2"></div>
+      </a>
+
+      <a href="topic-3.html" class="topic topic-3">
+        <img src="./assets/images/topic-3.png" alt="" />
+        <div class="num" data-lang-key="num.3"></div>
+        <div class="text" data-lang-key="topic-3"></div>
+      </a>
+
+      <a href="topic-4.html" class="topic topic-4">
+        <img src="./assets/images/topic-4.png" alt="" />
+        <div class="num" data-lang-key="num.4"></div>
+        <div class="text" data-lang-key="topic-4"></div>
+      </a>
+
+      <div class="circle">
+        <img src="./assets/images/Ellipse.png" alt="" />
+      </div>
+    </div>
+
+    <script src="./assets/js/app.js"></script>
+
+    <script>
+      const startBtn = document.querySelector(".start-btn");
+
+      startBtn.addEventListener("click", () => {
+        document.body.classList.add("start-open");
+      });
+    </script>
+  </body>
+</html>
