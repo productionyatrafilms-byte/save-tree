@@ -137,9 +137,9 @@
       .page-load-transition {
         opacity: 1;
         position: fixed;
-        left: 0;
-        top: -40%;
-        width: 100vw;
+        left: -10vw;
+        top: -50%;
+        width: 120vw;
         height: 100%;
         z-index: 999999;
         pointer-events: none;
@@ -148,7 +148,7 @@
 
       .page-load-transition img {
         width: 100%;
-        object-fit: contain;
+        object-fit: cover;
         display: block;
       }
 
@@ -226,18 +226,54 @@
       </a>
 
       <div class="circle">
-        <img src="./assets/images/Ellipse.png" alt="" />
+        <span class="circle-text"></span>
       </div>
     </div>
 
     <script src="./assets/js/app.js"></script>
 
     <script>
-      const startBtn = document.querySelector(".start-btn");
+    const startBtn = document.querySelector(".start-btn");
+const circle = document.querySelector(".circle");
+const topics = document.querySelectorAll(".topic-container .topic");
 
-      startBtn.addEventListener("click", () => {
-        document.body.classList.add("start-open");
-      });
+let circleText = document.querySelector(".circle-text");
+
+if (circle && !circleText) {
+  circleText = document.createElement("span");
+  circleText.className = "circle-text";
+  circle.appendChild(circleText);
+}
+
+if (startBtn) {
+  startBtn.addEventListener("click", () => {
+    document.body.classList.add("start-open");
+  });
+}
+
+topics.forEach((topic) => {
+  topic.addEventListener("mouseenter", () => {
+    const topicNum = topic.querySelector(".num");
+
+    if (!circle || !circleText || !topicNum) return;
+
+    const key = topicNum.getAttribute("data-lang-key");
+
+    circleText.textContent = topicNum.textContent;
+    circleText.setAttribute("data-lang-key", key);
+
+    circle.classList.add("hover-active");
+  });
+
+  topic.addEventListener("mouseleave", () => {
+    if (!circle || !circleText) return;
+
+    circleText.textContent = "";
+    circleText.removeAttribute("data-lang-key");
+
+    circle.classList.remove("hover-active");
+  });
+});
     </script>
   </body>
 </html>

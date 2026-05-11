@@ -27,10 +27,15 @@
         align-items: center;
       }
 
-      .left-container,
+      .left-container {
+        position: relative;
+        width: 75%;
+        height: 100%;
+      }
+
       .right-container {
         position: relative;
-        width: 50%;
+        width: 25%;
         height: 100%;
       }
 
@@ -42,19 +47,23 @@
         z-index: 10000;
         transition: opacity 3s ease;
         transform: translateX(-50%);
-        width: 38vw;
-        max-height: auto;
+        width: auto;
+        word-break: keep-all;
+        height: 5.5vw;
         border-radius: 5vw;
+        padding: 0vw 2vw;
         border: 0.12vw solid rgba(255, 255, 255, 0.65);
         overflow: hidden;
         box-shadow: 0 0.2vw 0.1vw rgba(0, 0, 0, 0.333);
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
-        gap: 0vw;
-        padding: 0 2vw;
+        gap: 0.8vw;
       }
 
+      .content-text p {
+        font-size: 2vw;
+      }
       .page-title::before {
         content: "";
         position: absolute;
@@ -76,7 +85,7 @@
         font-family: "TitanOne";
         display: inline-block;
         font-weight: bolder !important;
-        white-space: wrap;
+        white-space: nowrap;
         background: linear-gradient(
           to bottom,
           #075132 0%,
@@ -93,10 +102,6 @@
       }
       .page-title .text {
         width: 100%;
-      }
-
-      .page-title .num {
-        margin-bottom: 2.5vw;
       }
       .video-swiper {
         position: absolute;
@@ -124,9 +129,9 @@
         font-size: 2.8vw;
         line-height: 1.5;
       }
-     body[data-lang="hi"] .page-title .num,
+      body[data-lang="hi"] .page-title .num,
       body[data-lang="gu"] .page-title .num {
-        margin-bottom: 0!important;
+        margin-bottom: 0 !important;
       }
     </style>
   </head>
@@ -230,6 +235,7 @@
       </div>
 
       <div class="right-container">
+        <img src="./assets/images/grass.png" class="grass" alt="grass" />
         <div class="swiper text-swiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -332,45 +338,110 @@
 
       function updateButtons(swiper) {
         prevBtn.classList.toggle("hide", swiper.isBeginning);
-        nextBtn.classList.toggle("hide", swiper.isEnd);
+        nextBtn.classList.remove("hide");
       }
 
-      function resetContentImages() {
+      function resetTextSlides() {
+        document
+          .querySelectorAll(".text-swiper .swiper-slide")
+          .forEach((slide) => {
+            slide.classList.remove(
+              "next-ready",
+              "prev-ready",
+              "top-moving-slide",
+              "reverse-moving-slide",
+              "bottom-stay-slide",
+            );
+          });
+
         document.querySelectorAll(".content-text").forEach((box) => {
-          box.classList.remove("move-img");
+          box.classList.remove("move-img", "reverse-img");
         });
       }
 
+      function showNextImagePreview() {
+        const nextSlide = textSwiper.slides[textSwiper.activeIndex + 1];
+
+        if (nextSlide) {
+          nextSlide.classList.add("next-ready");
+        }
+      }
+
       nextBtn.addEventListener("click", () => {
-        if (videoSwiper.isEnd || isAnimating) return;
+        if (isAnimating) return;
+
+        if (videoSwiper.isEnd) {
+          window.location.href = "pranam.html";
+          return;
+        }
 
         isAnimating = true;
+
+        const currentSlide = document.querySelector(
+          ".text-swiper .swiper-slide-active",
+        );
 
         const currentContent = document.querySelector(
           ".text-swiper .swiper-slide-active .content-text",
         );
 
-        if (currentContent) {
-          currentContent.classList.add("move-img");
-        }
+        showNextImagePreview();
+
+        requestAnimationFrame(() => {
+          if (currentSlide) {
+            currentSlide.classList.add("top-moving-slide");
+          }
+
+          if (currentContent) {
+            currentContent.classList.add("move-img");
+          }
+        });
 
         setTimeout(() => {
           videoSwiper.slideNext();
           textSwiper.slideNext();
 
           setTimeout(() => {
-            resetContentImages();
+            resetTextSlides();
             isAnimating = false;
-          }, 100);
-        }, 450);
+          }, 200);
+        }, 480);
       });
 
       prevBtn.addEventListener("click", () => {
         if (videoSwiper.isBeginning || isAnimating) return;
 
-        videoSwiper.slidePrev();
-        textSwiper.slidePrev();
-        resetContentImages();
+        isAnimating = true;
+
+        const currentSlide = document.querySelector(
+          ".text-swiper .swiper-slide-active",
+        );
+
+        const prevSlide = textSwiper.slides[textSwiper.activeIndex - 1];
+
+        if (currentSlide) {
+          currentSlide.classList.add("bottom-stay-slide");
+        }
+
+        if (prevSlide) {
+          prevSlide.classList.add("prev-ready", "reverse-moving-slide");
+
+          const prevContent = prevSlide.querySelector(".content-text");
+
+          if (prevContent) {
+            prevContent.classList.add("reverse-img");
+          }
+        }
+
+        setTimeout(() => {
+          videoSwiper.slidePrev();
+          textSwiper.slidePrev();
+
+          setTimeout(() => {
+            resetTextSlides();
+            isAnimating = false;
+          }, 200);
+        }, 900);
       });
     </script>
   </body>
