@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      href="./assets/plugins/swiper/swiper-bundle.min.css"
     />
     <style>
       body {
@@ -266,28 +266,28 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="custom-card">
-              <video src="./assets/videos/1.mp4" autoplay muted loop></video>
+              <video preload="auto" src="./assets/videos/1.mp4" muted loop playsinline></video>
               <p data-lang-key="slide-2.1"></p>
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="custom-card">
-              <video src="./assets/videos/2.mp4" autoplay muted loop></video>
+              <video preload="none" src="./assets/videos/2.mp4" muted loop playsinline></video>
               <p data-lang-key="slide-2.2"></p>
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="custom-card">
-              <video src="./assets/videos/3.mp4" autoplay muted loop></video>
+              <video preload="none" src="./assets/videos/3.mp4" muted loop playsinline></video>
               <p data-lang-key="slide-2.3"></p>
             </div>
           </div>
 
           <div class="swiper-slide">
             <div class="custom-card">
-              <video src="./assets/videos/4.mp4" autoplay muted loop></video>
+              <video preload="none" src="./assets/videos/4.mp4" muted loop playsinline></video>
               <p data-lang-key="slide-2.4"></p>
             </div>
           </div>
@@ -311,8 +311,15 @@
         data-lang-key="title-2"
       ></a>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <a href="pranam.html" class="pranam-link">
+      <img src="./assets/images/arowAsset.png" alt="" />
+      <span data-lang-key="pranam"></span>
+    </a>
+
+    <script src="./assets/plugins/swiper/swiper-bundle.min.js"></script>
+    <script src="./assets/js/data.js"></script>
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/sounds.js"></script>
     <script>
       const prevBtn = document.querySelector(".prev-btn");
       const nextBtn = document.querySelector(".next-btn");
@@ -328,24 +335,36 @@
         on: {
           init: function () {
             updateButtons(this);
+            playActiveVideo(this);
           },
           slideChange: function () {
             updateButtons(this);
+            playActiveVideo(this);
           },
         },
       });
 
+      // Only the active slide's video loads and plays; the others stay paused.
+      function playActiveVideo(swiperInstance) {
+        document.querySelectorAll(".mySwiper video").forEach((video) => {
+          video.pause();
+        });
+        const activeVideo =
+          swiperInstance.slides[swiperInstance.activeIndex].querySelector("video");
+        if (activeVideo) {
+          activeVideo.preload = "auto";
+          activeVideo.play();
+        }
+      }
+
       function updateButtons(swiperInstance) {
         prevBtn.style.display = swiperInstance.isBeginning ? "none" : "flex";
-        nextBtn.style.display = "flex"; // always visible, even on last slide
+        nextBtn.style.display = swiperInstance.isEnd ? "none" : "flex";
+        document.body.classList.toggle("is-last-slide", swiperInstance.isEnd);
       }
 
       nextBtn.addEventListener("click", function () {
-        if (swiper.isEnd) {
-          window.location.href = "pranam.html";
-        } else {
-          swiper.slideNext();
-        }
+        swiper.slideNext();
       });
 
       prevBtn.addEventListener("click", function () {

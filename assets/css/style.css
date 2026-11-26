@@ -393,7 +393,7 @@ body.start-open .topic-container {
   justify-content: center;
   align-items: center;
   gap: 2vw;
-  z-index: 30;
+  z-index: 100000; /* above .video-swiper (99999) so the tooltip is not hidden behind it */
 }
 
 .page {
@@ -481,39 +481,24 @@ body.start-open .topic-container {
 .nav-buttons button {
   width: 3vw;
   height: 3vw;
+  padding: 0;
+  border: none;
   border-radius: 50%;
-  border: 0.22vw solid white;
-  background-color: #075132;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5vw;
+  background: none;
   cursor: pointer;
-  box-shadow: 0 0.25vw 0.4vw rgba(0, 0, 0, 0.35);
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
     transform 0.3s ease,
     opacity 0.3s ease;
 }
 
-.nav-buttons button:hover {
-  background-color: white;
-  color: gray;
-  transform: scale(1.08);
-}
-
-.nav-buttons button .double-icon {
-  display: none;
-}
-
-.nav-buttons button:hover .single-icon {
-  display: none;
-}
-
-.nav-buttons button:hover .double-icon {
+.nav-buttons button img {
+  width: 100%;
+  height: 100%;
   display: block;
+}
+
+.nav-buttons button:hover {
+  transform: scale(1.08);
 }
 
 .nav-buttons button.hide {
@@ -775,12 +760,12 @@ body.start-open .topic-container {
 .pranam-img span {
   z-index: 15;
   position: absolute;
-  top: 17%;
+  top: 0%;
   left: 50%;
   font-size: 3.4vw;
   transform: translateX(-50%);
   font-family: "BalooRegular";
-  color: #ab4339;
+  color: white;
 }
 
 .pranam-container .home-btn-1 {
@@ -806,9 +791,10 @@ body.start-open .topic-container {
 .home-btn-1 span {
   z-index: 15;
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 38%;
   font-size: 2.5vw;
+  line-height: 3vw;
   transform: translateY(-50%);
   font-family: "BalooRegular";
   color: white;
@@ -820,30 +806,135 @@ body.start-open .topic-container {
   top: 4%;
   width: 3vw;
   height: 3vw;
-  background-color: white;
-  border: 0.25vw solid transparent;
+  display: block;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
   transform: scale(1);
   transition: transform 0.3s ease;
   z-index: 50;
 }
 
-.back-btn i {
-  color: #1c6152;
-  font-size: 1vw;
-  transition: font-size 0.3s ease;
+.back-btn img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .back-btn:hover {
   transform: scale(1.05);
-  background-color: #1c6152;
 }
 
-.back-btn:hover i {
-  font-size: 1.2vw;
-  color: white !important;
+
+/* ---------- Pranam arrow (shown on the last slide) ---------- */
+.pranam-link {
+  position: absolute;
+  /* same anchor as .nav-buttons (vw based, so it stays put when the window is resized) */
+  top: calc(52% + 16.4vw);
+  left: 80%;
+  margin-left: -5vw;
+  width: 10vw;
+  display: block;
+  line-height: 0;
+  text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.85);
+  transition: opacity 0.6s ease;
+  z-index: 60;
+}
+
+body.is-last-slide .pranam-link {
+  opacity: 1;
+  pointer-events: auto;
+  animation: pranamPop 1.2s ease-in-out infinite;
+}
+
+@keyframes pranamPop {
+  0%,
+  100% {
+    transform: scale(0.85);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+.pranam-link img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pranam-link span {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  font-family: "BalooRegular";
+  font-size: 2vw;
+  line-height: 2.4vw;
+  white-space: nowrap;
+  color: #075132;
+}
+
+
+/* ---------- Pranam video (circle inside the card) ---------- */
+.pranam-video {
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  z-index: 5;
+  width: 28vw;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: #f6f6f6;
+  background-image: url("../images/pranam-bg-1.png");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.pranam-video video {
+  width: 100%;
+  height: 92%;
+  object-fit: cover;
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, black 6%, black 90%, transparent 100%),
+    linear-gradient(to right, transparent 0%, black 6%, black 90%, transparent 100%);
+  mask-composite: intersect;
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+
+/* ---------- Tooltip with the topic name (side page numbers) ---------- */
+.page .page-tip {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 1vw);
+  transform: translateY(-50%) translateX(-0.5vw);
+  padding: 0.5vw 1.2vw;
+  border-radius: 2vw;
+  background-color: white;
+  color: #155138;
+  border: 0.2vw solid #f6ed7a;
+  font-family: "BalooRegular", sans-serif;
+  font-size: 1.4vw;
+  line-height: 1.3;
+  white-space: nowrap;
+  box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  z-index: 40;
+}
+
+.page:hover .page-tip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
 }

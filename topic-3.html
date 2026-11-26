@@ -7,12 +7,7 @@
 
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      href="./assets/plugins/swiper/swiper-bundle.min.css"
     />
 
     <link rel="stylesheet" href="./assets/css/style.css" />
@@ -157,56 +152,56 @@
         <div class="swiper video-swiper">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <video
-                src="./assets/videos/topic-3/level 3_p1.mp4"
+              <video preload="auto"
+                src="./assets/videos/topic-3/level 3_p1.mp4" loop
                 muted
                 playsinline
               ></video>
             </div>
 
             <div class="swiper-slide">
-              <video
-                src="./assets/videos/topic-3/level 3_p2.mp4"
+              <video preload="none"
+                src="./assets/videos/topic-3/level 3_p2.mp4" loop
                 muted
                 playsinline
               ></video>
             </div>
 
             <div class="swiper-slide">
-              <video
-                src="./assets/videos/topic-3/level 3_p3.mp4"
+              <video preload="none"
+                src="./assets/videos/topic-3/level 3_p3.mp4" loop
                 muted
                 playsinline
               ></video>
             </div>
 
             <div class="swiper-slide">
-              <video
-                src="./assets/videos/topic-3/level 3_p4.mp4"
+              <video preload="none"
+                src="./assets/videos/topic-3/level 3_p4.mp4" loop
                 muted
                 playsinline
               ></video>
             </div>
 
             <div class="swiper-slide">
-              <video
-                src="./assets/videos/topic-3/level 3_p5.mp4"
+              <video preload="none"
+                src="./assets/videos/topic-3/level 3_p5.mp4" loop
                 muted
                 playsinline
               ></video>
             </div>
 
             <div class="swiper-slide">
-              <video
-                src="./assets/videos/topic-3/level 3_p6.mp4"
+              <video preload="none"
+                src="./assets/videos/topic-3/level 3_p6.mp4" loop
                 muted
                 playsinline
               ></video>
             </div>
 
             <div class="swiper-slide">
-              <video
-                src="./assets/videos/topic-3/level 3_p7 2.mp4"
+              <video preload="none"
+                src="./assets/videos/topic-3/level 3_p7 2.mp4" loop
                 muted
                 playsinline
               ></video>
@@ -216,21 +211,31 @@
 
         <div class="nav-buttons">
           <button class="prev-btn hide">
-            <i class="fa-solid fa-chevron-left single-icon"></i>
-            <i class="fa-solid fa-angles-left double-icon"></i>
+            <img src="./assets/images/prev.png" alt="Previous" />
           </button>
 
           <button class="next-btn">
-            <i class="fa-solid fa-chevron-right single-icon"></i>
-            <i class="fa-solid fa-angles-right double-icon"></i>
+            <img src="./assets/images/next.png" alt="Next" />
           </button>
         </div>
 
         <div class="pages">
-          <a href="topic-1.html" class="page" data-lang-key="num-1"></a>
-          <a href="topic-2.html" class="page" data-lang-key="num-2"></a>
-          <a href="topic-3.html" class="page" data-lang-key="num-3"></a>
-          <a href="topic-4.html" class="page" data-lang-key="num-4"></a>
+          <a href="topic-1.html" class="page">
+            <span data-lang-key="num-1"></span>
+            <span class="page-tip" data-lang-key="topic-1"></span>
+          </a>
+          <a href="topic-2.html" class="page">
+            <span data-lang-key="num-2"></span>
+            <span class="page-tip" data-lang-key="topic-2"></span>
+          </a>
+          <a href="topic-3.html" class="page">
+            <span data-lang-key="num-3"></span>
+            <span class="page-tip" data-lang-key="topic-3"></span>
+          </a>
+          <a href="topic-4.html" class="page">
+            <span data-lang-key="num-4"></span>
+            <span class="page-tip" data-lang-key="topic-4"></span>
+          </a>
         </div>
       </div>
 
@@ -291,8 +296,15 @@
       </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <a href="pranam.html" class="pranam-link">
+      <img src="./assets/images/arowAsset.png" alt="" />
+      <span data-lang-key="pranam"></span>
+    </a>
+
+    <script src="./assets/plugins/swiper/swiper-bundle.min.js"></script>
+    <script src="./assets/js/data.js"></script>
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/sounds.js"></script>
 
     <script>
       const prevBtn = document.querySelector(".prev-btn");
@@ -332,13 +344,15 @@
           swiper.slides[swiper.activeIndex].querySelector("video");
 
         if (activeVideo) {
+          activeVideo.preload = "auto";
           activeVideo.play();
         }
       }
 
       function updateButtons(swiper) {
         prevBtn.classList.toggle("hide", swiper.isBeginning);
-        nextBtn.classList.remove("hide");
+        nextBtn.classList.toggle("hide", swiper.isEnd);
+        document.body.classList.toggle("is-last-slide", swiper.isEnd);
       }
 
       function resetTextSlides() {
@@ -370,10 +384,7 @@
       nextBtn.addEventListener("click", () => {
         if (isAnimating) return;
 
-        if (videoSwiper.isEnd) {
-          window.location.href = "pranam.html";
-          return;
-        }
+        if (videoSwiper.isEnd) return;
 
         isAnimating = true;
 
